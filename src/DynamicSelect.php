@@ -81,12 +81,12 @@ class DynamicSelect extends Field
 
     protected function fillAttributeFromRequest(NovaRequest $request, $requestAttribute, $model, $attribute)
     {
+        $value = $request->input($requestAttribute) ?? null;
         if ($this->multiselect) {
-            $values = $request->input($requestAttribute) ?? null;
 
-            if ($values && !empty($values)) {
-                $values = collect($values)->map(function ($value) {
-                    return json_decode($value);
+            if ($value && !empty($value)) {
+                $values = collect($value)->map(function ($v) {
+                    return json_decode($v);
                 });
 
                 $model->{$attribute} = $values;
