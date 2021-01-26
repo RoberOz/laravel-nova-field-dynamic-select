@@ -1029,14 +1029,12 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
             this.options = this.field.options;
 
-            if (this.field.value) {
-                if (this.field.multiselect) {
-                    this.value = this.field.value;
-                } else {
-                    this.value = this.options.find(function (item) {
-                        return item['value'] == _this.field.value;
-                    });
-                }
+            if (this.field.multiselect) {
+                this.value = this.field.value;
+            } else {
+                this.value = this.options.find(function (item) {
+                    return item['value'] === _this.field.value;
+                });
             }
         },
 
