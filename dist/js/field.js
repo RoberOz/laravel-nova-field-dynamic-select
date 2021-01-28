@@ -1033,7 +1033,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                 this.value = this.field.value;
             } else {
                 this.value = this.options.find(function (item) {
-                    return item['value'] === _this.field.value;
+                    return item['value'] == _this.field.value;
                 });
             }
         },

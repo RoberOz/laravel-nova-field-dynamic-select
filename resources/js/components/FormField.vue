@@ -87,7 +87,7 @@ export default {
             if (this.field.multiselect) {
                 this.value = this.field.value;
             } else {
-                this.value = this.options.find(item => item['value'] === this.field.value);
+                this.value = this.options.find(item => item['value'] == this.field.value);
             }
         },
 
