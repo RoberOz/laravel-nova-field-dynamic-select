@@ -63,6 +63,10 @@ class OptionsController extends Controller
                                     }
                                 }
                             }
+
+                            // if in only conditional container
+                        }  elseif ($layouts->attribute === $attribute) {
+                            $field = $layouts; // field
                         }
                     }
                 }
