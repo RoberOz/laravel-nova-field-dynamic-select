@@ -6,6 +6,14 @@ trait DependsOnAnotherField
 {
     protected $dependsOn = null;
     protected $dependentValues = [];
+    protected $viaResourceId = null;
+
+    public function viaResourceId($id)
+    {
+        $this->viaResourceId = $id;
+
+        return $this;
+    }
 
     public function dependsOn($field)
     {
@@ -36,6 +44,7 @@ trait DependsOnAnotherField
             foreach ($attributes as $attribute) {
                 $values[$attribute] = $this->resolveAttribute($model, $attribute);
             }
+            $values['viaResourceId'] = $this->viaResourceId;
 
             $this->dependentValues = $values;
         }
