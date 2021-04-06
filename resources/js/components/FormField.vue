@@ -145,8 +145,10 @@ export default {
                 depends: this.getDependValues(dependsOnValue.value, originalDependsOnAttribute)
             })).data.options;
 
-            if(this.value) {
-                this.value = this.options.find(item => item['value'] == this.value['value']);
+            if (this.field.selectAll && this.field.multiselect) {
+                this.value = this.options;
+            } else if (this.value) {
+                this.value = this.options.find(item => item['value'] == this.value);
             }
         }
     },

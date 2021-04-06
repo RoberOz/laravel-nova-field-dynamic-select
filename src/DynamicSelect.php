@@ -16,6 +16,7 @@ class DynamicSelect extends Field
     public $component = 'dynamic-select';
     public $labelKey;
     public $multiselect = false;
+    public $selectAll = false;
 
     public function resolve($resource, $attribute = null)
     {
@@ -103,6 +104,13 @@ class DynamicSelect extends Field
         return $this;
     }
 
+    public function selectAll($selectAll = true)
+    {
+        $this->selectAll = $selectAll;
+
+        return $this;
+    }
+
     public function labelKey($labelKey)
     {
         $this->labelKey = $labelKey;
@@ -123,6 +131,7 @@ class DynamicSelect extends Field
             'selectedLabel' => __('Selected'),
             'labelKey' => $this->labelKey,
             'multiselect' => $this->multiselect,
+            'selectAll' => $this->selectAll,
         ], $this->meta);
     }
 }
