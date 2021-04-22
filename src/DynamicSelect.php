@@ -17,6 +17,7 @@ class DynamicSelect extends Field
     public $labelKey;
     public $multiselect = false;
     public $selectAll = false;
+    public $placeholder;
 
     public function resolve($resource, $attribute = null)
     {
@@ -125,7 +126,7 @@ class DynamicSelect extends Field
             'options' => $this->getOptions($this->dependentValues),
             'dependsOn' => $this->getDependsOn(),
             'dependValues' => count($this->dependentValues) ? $this->dependentValues :  new \ArrayObject(),
-            'placeholder' => __('Pick a value'),
+            'placeholder' => $this->placeholder ?: __('Pick a value'),
             'selectLabel' => __('Press enter to select'),
             'deselectLabel' => __('Press enter to remove'),
             'selectedLabel' => __('Selected'),
