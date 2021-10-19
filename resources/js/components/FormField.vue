@@ -43,6 +43,8 @@ export default {
                 Nova.$on("nova-dynamic-select-changed-" + dependsOn, this.onDependencyChanged);
             }, this);
         }
+
+      Nova.$on("nova-dynamic-select-add-option-" + this.field.attribute, this.addItemToOption);
     },
 
     beforeDestroy() {
@@ -55,6 +57,10 @@ export default {
     },
 
     methods: {
+      addItemToOption(item) {
+        this.options.unshift(item);
+        this.value = item;
+      },
 
         /*
          * Check if a property exists, set by Nested Forms package
