@@ -13,7 +13,9 @@
                 :selectLabel="field.selectLabel"
                 :deselectLabel="field.deselectLabel"
                 :selectedLabel="field.selectedLabel"
-                @input="onChange">
+                :ref="`field-${field.attribute}`"
+                @input="onChange"
+            >
             </multiselect>
         </template>
     </default-field>
