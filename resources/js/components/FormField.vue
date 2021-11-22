@@ -157,17 +157,20 @@ export default {
             }
         },
 
-      async getOptions(search, dependsOnValue) {
-        if (this.field.search) {
+      getOptions: _.debounce(async function(search, dependsOnValue) {
+        if (this.field.searchable) {
           this.search = search;
         }
 
         this.options = (await Nova.request().post("/nova-vendor/dynamic-select/options/"+this.resourceName, {
           attribute: this.field.originalAttribute ? this.field.originalAttribute : this.removeFlexibleContentPrefix(this.field.attribute),
           depends: dependsOnValue ? this.getDependValues(dependsOnValue.value, originalDependsOnAttribute) : null,
-          search: search
+          search: search,
+          searchable: this.field.searchable,
+          action: this.field.action,
+          resourceId: this.resourceId,
         })).data.options;
-      }
+      }, 300),
     },
 }
 </script>

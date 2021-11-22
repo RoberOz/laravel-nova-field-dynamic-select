@@ -20,6 +20,7 @@ class DynamicSelect extends Field
     public $multiselect = false;
     public $selectAll = false;
     public $placeholder;
+    public $action;
 
     public function resolve($resource, $attribute = null)
     {
@@ -120,6 +121,13 @@ class DynamicSelect extends Field
         return $this;
     }
 
+    public function inAction($action)
+    {
+        $this->action = $action;
+
+        return $this;
+    }
+
     public function meta()
     {
         $this->meta = parent::meta();
@@ -135,7 +143,7 @@ class DynamicSelect extends Field
             'multiselect' => $this->multiselect,
             'selectAll' => $this->selectAll,
             'asyncSearch' => $this->asyncSearch,
-            'search' => $this->search,
+            'searchable' => $this->searchable,
         ], $this->meta);
     }
 }

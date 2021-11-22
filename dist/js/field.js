@@ -1145,13 +1145,15 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
             return onDependencyChanged;
         }(),
-        getOptions: function () {
+
+
+        getOptions: _.debounce(function () {
             var _ref3 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee3(search, dependsOnValue) {
                 return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee3$(_context3) {
                     while (1) {
                         switch (_context3.prev = _context3.next) {
                             case 0:
-                                if (this.field.search) {
+                                if (this.field.searchable) {
                                     this.search = search;
                                 }
 
@@ -1159,7 +1161,10 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                                 return Nova.request().post("/nova-vendor/dynamic-select/options/" + this.resourceName, {
                                     attribute: this.field.originalAttribute ? this.field.originalAttribute : this.removeFlexibleContentPrefix(this.field.attribute),
                                     depends: dependsOnValue ? this.getDependValues(dependsOnValue.value, originalDependsOnAttribute) : null,
-                                    search: search
+                                    search: search,
+                                    searchable: this.field.searchable,
+                                    action: this.field.action,
+                                    resourceId: this.resourceId
                                 });
 
                             case 3:
@@ -1173,12 +1178,10 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                 }, _callee3, this);
             }));
 
-            function getOptions(_x3, _x4) {
+            return function (_x3, _x4) {
                 return _ref3.apply(this, arguments);
-            }
-
-            return getOptions;
-        }()
+            };
+        }(), 300)
     }
 });
 

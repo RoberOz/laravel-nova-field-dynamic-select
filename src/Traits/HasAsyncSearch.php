@@ -6,13 +6,13 @@ use Closure;
 
 trait HasAsyncSearch
 {
-    protected $search = false;
+    protected $searchable = false;
 
     protected $asyncSearch = [];
 
     public function asyncSearch($asyncSearch)
     {
-        $this->search = true;
+        $this->searchable = true;
         $this->asyncSearch = $asyncSearch;
 
         return $this;

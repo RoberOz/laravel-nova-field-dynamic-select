@@ -14,21 +14,33 @@ class OptionsController extends Controller
         $dependValues = $request->input('depends');
         $search = $request->input('search');
 
-        $resource = $request->newResource();
+        if ($action = $request->get('action')) {
+            $resource = new $action();
+            if ($resource) {
+                $resource->withMeta([
+                    'resourceId' => $request->get('resourceId'),
+                ]);
+            }
 
-        // Nova tabs compatibility:
-        // https://github.com/eminiarts/nova-tabs
-        if (method_exists($resource, 'parentUpdateFields')) {
-            $fields = $resource->parentUpdateFields($request);
-            $field = $fields->findFieldByAttribute($attribute);
+            $fields = $resource->fields($request);
         } else {
-            $fields = $resource->updateFields($request);
-            $field = $fields->findFieldByAttribute($attribute);
+            $resource = $request->newResource();
 
-            if (!$field) {
-                $fields = $resource->fields($request);
+            // Nova tabs compatibility:
+            // https://github.com/eminiarts/nova-tabs
+            if (method_exists($resource, 'parentUpdateFields')) {
+                $fields = $resource->parentUpdateFields($request);
+                $field = $fields->findFieldByAttribute($attribute);
+            } else {
+                $fields = $resource->updateFields($request);
+                $field = $fields->findFieldByAttribute($attribute);
+
+                if (!$field) {
+                    $fields = $resource->fields($request);
+                }
             }
         }
+
 
         if (!isset($field)) {
             foreach ($fields as $updateField) {
@@ -75,7 +87,7 @@ class OptionsController extends Controller
         }
 
         /** @var DynamicSelect $field */
-        $options = !blank($search) ? $field->getAsyncSearchResult($search) : $field->getOptions($dependValues);
+        $options = $request->boolean('searchable') ? $field->getAsyncSearchResult($search) : $field->getOptions($dependValues);
 
         return [
             'options' => $options,
