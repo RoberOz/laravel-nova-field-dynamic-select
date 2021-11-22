@@ -7,6 +7,7 @@
                 :multiple="field.multiselect"
                 :searchable="true"
                 :disabled="isReadonly"
+                :internal-search="!field.searchable"
                 track-by="value"
                 label="label"
                 :placeholder="field.placeholder"

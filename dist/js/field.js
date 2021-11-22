@@ -965,6 +965,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
+//
 
 
 
@@ -28270,6 +28271,7 @@ var render = function() {
               multiple: _vm.field.multiselect,
               searchable: true,
               disabled: _vm.isReadonly,
+              "internal-search": !_vm.field.searchable,
               "track-by": "value",
               label: "label",
               placeholder: _vm.field.placeholder,
