@@ -1107,7 +1107,6 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
             var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee2(dependsOnValue) {
                 var _this3 = this;
 
-                var originalDependsOnAttribute;
                 return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
                     while (1) {
                         switch (_context2.prev = _context2.next) {
@@ -1117,11 +1116,10 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                                     field: this.field
                                 });
 
-                                originalDependsOnAttribute = this.field.originalAttribute ? dependsOnValue.field.originalAttribute.toLowerCase() : dependsOnValue.field.attribute.toLowerCase();
-                                _context2.next = 4;
+                                _context2.next = 3;
                                 return this.getOptions(this.search, dependsOnValue);
 
-                            case 4:
+                            case 3:
 
                                 if (this.field.selectAll && this.field.multiselect) {
                                     this.value = this.options;
@@ -1131,7 +1129,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                                     });
                                 }
 
-                            case 5:
+                            case 4:
                             case 'end':
                                 return _context2.stop();
                         }
@@ -1149,6 +1147,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
         getOptions: _.debounce(function () {
             var _ref3 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee3(search, dependsOnValue) {
+                var originalDependsOnAttribute;
                 return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee3$(_context3) {
                     while (1) {
                         switch (_context3.prev = _context3.next) {
@@ -1157,7 +1156,13 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                                     this.search = search;
                                 }
 
-                                _context3.next = 3;
+                                originalDependsOnAttribute = void 0;
+
+                                if (dependsOnValue) {
+                                    originalDependsOnAttribute = this.field.originalAttribute ? dependsOnValue.field.originalAttribute.toLowerCase() : dependsOnValue.field.attribute.toLowerCase();
+                                }
+
+                                _context3.next = 5;
                                 return Nova.request().post("/nova-vendor/dynamic-select/options/" + this.resourceName, {
                                     attribute: this.field.originalAttribute ? this.field.originalAttribute : this.removeFlexibleContentPrefix(this.field.attribute),
                                     depends: dependsOnValue ? this.getDependValues(dependsOnValue.value, originalDependsOnAttribute) : null,
@@ -1167,10 +1172,10 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                                     resourceId: this.resourceId
                                 });
 
-                            case 3:
+                            case 5:
                                 this.options = _context3.sent.data.options;
 
-                            case 4:
+                            case 6:
                             case 'end':
                                 return _context3.stop();
                         }

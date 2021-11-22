@@ -139,14 +139,10 @@ export default {
         },
 
         async onDependencyChanged(dependsOnValue) {
-            Nova.$emit("nova-dynamic-select-changed-" + this.field.attribute.toLowerCase(), {
-                value: this.value,
-                field: this.field
-            });
-
-            let originalDependsOnAttribute = this.field.originalAttribute
-                ? dependsOnValue.field.originalAttribute.toLowerCase()
-                : dependsOnValue.field.attribute.toLowerCase();
+          Nova.$emit("nova-dynamic-select-changed-" + this.field.attribute.toLowerCase(), {
+            value: this.value,
+            field: this.field
+          });
 
           await this.getOptions(this.search, dependsOnValue);
 
@@ -160,6 +156,13 @@ export default {
       getOptions: _.debounce(async function(search, dependsOnValue) {
         if (this.field.searchable) {
           this.search = search;
+        }
+
+        let originalDependsOnAttribute;
+        if (dependsOnValue) {
+          originalDependsOnAttribute = this.field.originalAttribute
+              ? dependsOnValue.field.originalAttribute.toLowerCase()
+              : dependsOnValue.field.attribute.toLowerCase();
         }
 
         this.options = (await Nova.request().post("/nova-vendor/dynamic-select/options/"+this.resourceName, {
