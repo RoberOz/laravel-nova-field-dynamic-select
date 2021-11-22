@@ -82,6 +82,8 @@ class OptionsController extends Controller
                             $field = $layouts; // field
                         }
                     }
+                } else if ($updateField->attribute === $attribute) {
+                    $field = $updateField;
                 }
             }
         }

@@ -144,6 +144,7 @@ class DynamicSelect extends Field
             'selectAll' => $this->selectAll,
             'asyncSearch' => $this->asyncSearch,
             'searchable' => $this->searchable,
+            'action' => $this->action,
         ], $this->meta);
     }
 }
