@@ -33,7 +33,8 @@ export default {
 
     data() {
         return {
-            options: []
+            options: [],
+            search: '',
         };
     },
 
@@ -153,7 +154,7 @@ export default {
             }
         },
 
-      getOptions: _.debounce(async function(search, dependsOnValue) {
+      async getOptions(search, dependsOnValue) {
         if (this.field.searchable) {
           this.search = search;
         }
@@ -173,7 +174,7 @@ export default {
           action: this.field.action,
           resourceId: this.resourceId,
         })).data.options;
-      }, 300),
+      },
     },
 }
 </script>
