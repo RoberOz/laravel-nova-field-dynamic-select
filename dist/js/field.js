@@ -977,7 +977,8 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
     data: function data() {
         return {
-            options: []
+            options: [],
+            search: ''
         };
     },
     created: function created() {
@@ -1143,9 +1144,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
             return onDependencyChanged;
         }(),
-
-
-        getOptions: _.debounce(function () {
+        getOptions: function () {
             var _ref3 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee3(search, dependsOnValue) {
                 var originalDependsOnAttribute;
                 return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee3$(_context3) {
@@ -1183,10 +1182,12 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                 }, _callee3, this);
             }));
 
-            return function (_x3, _x4) {
+            function getOptions(_x3, _x4) {
                 return _ref3.apply(this, arguments);
-            };
-        }(), 300)
+            }
+
+            return getOptions;
+        }()
     }
 });
 
