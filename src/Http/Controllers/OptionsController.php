@@ -12,6 +12,7 @@ class OptionsController extends Controller
     {
         $attribute = $request->input('attribute');
         $dependValues = $request->input('depends');
+        $search = $request->input('search');
 
         $resource = $request->newResource();
 
@@ -74,7 +75,7 @@ class OptionsController extends Controller
         }
 
         /** @var DynamicSelect $field */
-        $options = $field->getOptions($dependValues);
+        $options = !blank($search) ? $field->getAsyncSearchResult($search) : $field->getOptions($dependValues);
 
         return [
             'options' => $options,

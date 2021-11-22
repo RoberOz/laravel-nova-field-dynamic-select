@@ -14,6 +14,7 @@
                 :deselectLabel="field.deselectLabel"
                 :selectedLabel="field.selectedLabel"
                 @input="onChange"
+                @search-change="getOptions($event)"
             >
             </multiselect>
         </template>
@@ -147,17 +148,26 @@ export default {
                 ? dependsOnValue.field.originalAttribute.toLowerCase()
                 : dependsOnValue.field.attribute.toLowerCase();
 
-            this.options = (await Nova.request().post("/nova-vendor/dynamic-select/options/"+this.resourceName, {
-                attribute: this.field.originalAttribute ? this.field.originalAttribute : this.removeFlexibleContentPrefix(this.field.attribute),
-                depends: this.getDependValues(dependsOnValue.value, originalDependsOnAttribute)
-            })).data.options;
+          await this.getOptions(this.search, dependsOnValue);
 
-            if (this.field.selectAll && this.field.multiselect) {
+          if (this.field.selectAll && this.field.multiselect) {
                 this.value = this.options;
             } else if (this.value) {
                 this.value = this.options.find(item => item['value'] == this.value);
             }
+        },
+
+      async getOptions(search, dependsOnValue) {
+        if (this.field.search) {
+          this.search = search;
         }
+
+        this.options = (await Nova.request().post("/nova-vendor/dynamic-select/options/"+this.resourceName, {
+          attribute: this.field.originalAttribute ? this.field.originalAttribute : this.removeFlexibleContentPrefix(this.field.attribute),
+          depends: dependsOnValue ? this.getDependValues(dependsOnValue.value, originalDependsOnAttribute) : null,
+          search: search
+        })).data.options;
+      }
     },
 }
 </script>

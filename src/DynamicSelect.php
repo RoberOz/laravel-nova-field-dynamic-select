@@ -2,6 +2,7 @@
 
 namespace Hubertnnn\LaravelNova\Fields\DynamicSelect;
 
+use Hubertnnn\LaravelNova\Fields\DynamicSelect\Traits\HasAsyncSearch;
 use RuntimeException;
 use Hubertnnn\LaravelNova\Fields\DynamicSelect\Traits\DependsOnAnotherField;
 use Hubertnnn\LaravelNova\Fields\DynamicSelect\Traits\HasDynamicOptions;
@@ -12,6 +13,7 @@ class DynamicSelect extends Field
 {
     use HasDynamicOptions;
     use DependsOnAnotherField;
+    use HasAsyncSearch;
 
     public $component = 'dynamic-select';
     public $labelKey;
@@ -80,7 +82,6 @@ class DynamicSelect extends Field
         return $this;
     }
 
-
     protected function fillAttributeFromRequest(NovaRequest $request, $requestAttribute, $model, $attribute)
     {
         $value = $request->input($requestAttribute) ?? null;
@@ -133,6 +134,8 @@ class DynamicSelect extends Field
             'labelKey' => $this->labelKey,
             'multiselect' => $this->multiselect,
             'selectAll' => $this->selectAll,
+            'asyncSearch' => $this->asyncSearch,
+            'search' => $this->search,
         ], $this->meta);
     }
 }
