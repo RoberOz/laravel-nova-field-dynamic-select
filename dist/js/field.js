@@ -1152,17 +1152,23 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                     while (1) {
                         switch (_context3.prev = _context3.next) {
                             case 0:
-                                if (this.field.searchable) {
-                                    this.search = search;
+                                this.search = search;
+
+                                if (!(!this.field.searchable && !dependsOnValue)) {
+                                    _context3.next = 3;
+                                    break;
                                 }
 
+                                return _context3.abrupt('return');
+
+                            case 3:
                                 originalDependsOnAttribute = void 0;
 
                                 if (dependsOnValue) {
                                     originalDependsOnAttribute = this.field.originalAttribute ? dependsOnValue.field.originalAttribute.toLowerCase() : dependsOnValue.field.attribute.toLowerCase();
                                 }
 
-                                _context3.next = 5;
+                                _context3.next = 7;
                                 return Nova.request().post("/nova-vendor/dynamic-select/options/" + this.resourceName, {
                                     attribute: this.field.originalAttribute ? this.field.originalAttribute : this.removeFlexibleContentPrefix(this.field.attribute),
                                     depends: dependsOnValue ? this.getDependValues(dependsOnValue.value, originalDependsOnAttribute) : null,
@@ -1172,10 +1178,10 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                                     resourceId: this.resourceId
                                 });
 
-                            case 5:
+                            case 7:
                                 this.options = _context3.sent.data.options;
 
-                            case 6:
+                            case 8:
                             case 'end':
                                 return _context3.stop();
                         }

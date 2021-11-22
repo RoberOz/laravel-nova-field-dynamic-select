@@ -156,8 +156,9 @@ export default {
         },
 
       async getOptions(search, dependsOnValue) {
-        if (this.field.searchable) {
-          this.search = search;
+        this.search = search;
+        if (!this.field.searchable && !dependsOnValue) {
+          return;
         }
 
         let originalDependsOnAttribute;
