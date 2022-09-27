@@ -49,7 +49,15 @@ class OptionsController extends Controller
                 if ($updateField->component == 'nova-flexible-content') {
                     foreach ($updateField->meta['layouts'] as $layout) {
                         foreach ($layout->fields() as $layoutField) {
-                            if ($layoutField->attribute === $attribute) {
+                            if ($layoutField->component == 'nova-flexible-content') {
+                                foreach ($layoutField->meta['layouts'] as $dynamicLayoutField) {
+                                    foreach ($dynamicLayoutField->fields() as $dynamicField) {
+                                        if ($dynamicField->attribute === $attribute) {
+                                            $field = $dynamicField;
+                                        }
+                                    }
+                                }
+                            } elseif ($layoutField->attribute === $attribute) {
                                 $field = $layoutField;
                             }
                         }
